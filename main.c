@@ -46,7 +46,7 @@ bool FFT(int *a,complex double *y,int n)
     FFT(a_odd,y_odd,n/2);
 
     complex double wn=cos((2*pi)/n)-I*sin((2*pi)/n);
-    complex double w=1+I*;
+    complex double w=1+I*  ;
     for(int i=0;i<=n/2-1;i++)
     {
         y[i]=y_even[i]+
