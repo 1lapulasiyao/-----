@@ -9,7 +9,7 @@ bool FFT(int *a,complex double *y,int n)
 {
     if (n==1)
     {
-        y[0]==(complex double)(a[0]);
+        y[0]=(complex double)(a[0]);
         return true;   
     }
     if(n<1)
@@ -26,6 +26,9 @@ bool FFT(int *a,complex double *y,int n)
     int *a_odd=(int *)malloc(sizeof(int)*(n/2));
     complex double *y_even=(complex double *)malloc(sizeof(complex double)*(n/2));
     complex double *y_odd=(complex double*)malloc(sizeof(complex double)*(n/2));
+
+    
+
     int k=0;
     int l=0;
     for (int i=0;i<=n-1;i++)
@@ -44,18 +47,29 @@ bool FFT(int *a,complex double *y,int n)
 
     FFT(a_even,y_even,n/2);
     FFT(a_odd,y_odd,n/2);
+    free(a_even);
+    free(a_odd);
 
     complex double wn=cos((2*pi)/n)-I*sin((2*pi)/n);
-    complex double w=1+I*  ;
+    complex double w=1+I*0;
     for(int i=0;i<=n/2-1;i++)
     {
-        y[i]=y_even[i]+
+        y[i]=y_even[i]+w*y_odd[i];
+        y[i+n/2]=y_even[i]-w*y_odd[i];
+        w=w*wn;
     }
+    free(y_even);
+    free(y_odd);
+
+    return true;
 }
 
 
 int main()
 {
+    int a[4]={1,1,0,0};
+    complex double y[4];
+    FFT(a,y,4);
+    printf("%f",cimag(y[1]));
     
-
 }
